@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت‌نام - تحلیل طرحواره</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #ffe6e6;
+            color: #d63031;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #007bff;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="logo">
+            <h1>🔍 تحلیل طرحواره</h1>
+            <p>حساب کاربری جدید ایجاد کنید</p>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="fullName">نام کامل</label>
+                <input type="text" id="fullName" placeholder="نام و نام خانوادگی خود را وارد کنید" required>
+            </div>
+
+            <div class="form-group">
+                <label for="username">نام کاربری</label>
+                <input type="text" id="username" placeholder="یک نام کاربری انتخاب کنید" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">ایمیل</label>
+                <input type="email" id="email" placeholder="آدرس ایمیل خود را وارد کنید" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">رمز عبور</label>
+                <input type="password" id="password" placeholder="رمز عبور قوی انتخاب کنید" minlength="6" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">تکرار رمز عبور</label>
+                <input type="password" id="confirmPassword" placeholder="رمز عبور را مجدداً وارد کنید" required>
+            </div>
+
+            <button type="submit">ثبت‌نام</button>
+        </form>
+
+        <div class="loading" id="loading">
+            در حال ایجاد حساب کاربری...
+        </div>
+
+        <div class="login-link">
+            قبلاً حساب کاربری دارید؟ <a href="login.html">وارد شوید</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://schema-wuc7.onrender.com'; // آدرس Runflare شما
+
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // پنهان کردن پیام‌های قبلی
+            hideMessages();
+
+            // اعتبارسنجی اولیه
+            const validation = validateForm();
+            if (!validation.isValid) {
+                showError(validation.message);
+                return;
+            }
+
+            // نمایش loading
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                const formData = {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    username: document.getElementById('username').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    password: document.getElementById('password').value
+                };
+
+                const response = await fetch(`${API_BASE}/api/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess('حساب کاربری با موفقیت ایجاد شد! در حال انتقال به صفحه ورود...');
+
+                    // انتقال به صفحه ورود بعد از 2 ثانیه
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+
+                } else {
+                    showError(data.error || 'خطا در ثبت‌نام');
+                }
+
+            } catch (error) {
+                showError('خطا در ارتباط با سرور');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+
+        function validateForm() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+
+            // بررسی تطابق رمز عبور
+            if (password !== confirmPassword) {
+                return {
+                    isValid: false,
+                    message: 'رمز عبور و تکرار آن مطابقت ندارند'
+                };
+            }
+
+            // بررسی طول رمز عبور
+            if (password.length < 6) {
+                return {
+                    isValid: false,
+                    message: 'رمز عبور باید حداقل ۶ کاراکتر باشد'
+                };
+            }
+
+            // بررسی فرمت ایمیل
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return {
+                    isValid: false,
+                    message: 'فرمت ایمیل نامعتبر است'
+                };
+            }
+
+            // بررسی نام کاربری
+            if (username.length < 3) {
+                return {
+                    isValid: false,
+                    message: 'نام کاربری باید حداقل ۳ کاراکتر باشد'
+                };
+            }
+
+            return { isValid: true };
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+        }
+
+        function hideMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // اعتبارسنجی real-time
+        document.getElementById('confirmPassword').addEventListener('input', function () {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+
+            if (confirmPassword && password !== confirmPassword) {
+                this.style.borderColor = '#dc3545';
+            } else {
+                this.style.borderColor = '#28a745';
+            }
+        });
+    </script>
+</body>
+
+</html>
