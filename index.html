@@ -477,6 +477,115 @@
     </div>
 
     <script src="app.js"></script>
+
+    <!-- قبل از </body> این کد رو اضافه کنید -->
+    <div id="formModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>جزئیات فرم</h3>
+            <div id="modalContent">
+                <!-- محتوای فرم اینجا نمایش داده می‌شه -->
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .form-detail-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .form-detail-section h4 {
+            margin-bottom: 10px;
+            color: #2d3436;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 5px;
+        }
+    </style>
+
+    <script>
+        // توابع جدید برای مدیریت modal
+        function viewFormDetail(formId) {
+            // در آینده از API اطلاعات فرم رو بگیرید
+            // فعلاً با اطلاعات موجود کار می‌کنیم
+
+            const modalContent = `
+        <div class="form-detail-section">
+            <h4>📝 موقعیت</h4>
+            <p>${getFormPreview(formId)}</p>
+        </div>
+        <div class="form-detail-section">
+            <h4>🧠 تحلیل طرحواره</h4>
+            <p>برای مشاهده تحلیل کامل، این قابلیت در حال توسعه است...</p>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="closeModal()" class="submit-btn">بستن</button>
+        </div>
+    `;
+
+            document.getElementById('modalContent').innerHTML = modalContent;
+            document.getElementById('formModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('formModal').style.display = 'none';
+        }
+
+        function getFormPreview(formId) {
+            // این تابع رو بعداً با API پر می‌کنیم
+            return "جزئیات کامل فرم به زودی قابل مشاهده خواهد بود...";
+        }
+
+        // بستن modal با کلیک خارج از محتوا
+        document.getElementById('formModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // بستن modal با دکمه بستن
+        document.querySelector('.close-btn').addEventListener('click', closeModal);
+    </script>
 </body>
 
 </html>
