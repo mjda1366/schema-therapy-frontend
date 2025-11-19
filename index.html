@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,42 +11,46 @@
             margin: 0;
             padding: 0;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f6fa;
             color: #333;
+            line-height: 1.6;
         }
-        
+
         .header {
             background: white;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .logo h1 {
             color: #2d3436;
-            font-size: 24px;
+            font-size: 20px;
         }
-        
+
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        
+
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             background: #007bff;
             border-radius: 50%;
             display: flex;
@@ -53,192 +58,271 @@
             justify-content: center;
             color: white;
             font-weight: bold;
+            font-size: 14px;
         }
-        
+
         .logout-btn {
             background: #dc3545;
             color: white;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 15px;
         }
-        
+
         .main-content {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .sidebar {
-            background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            order: 1;
+        }
+
+        .sidebar {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             height: fit-content;
+            order: 2;
         }
-        
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
-        
+
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
             color: #2d3436;
+            font-size: 14px;
         }
-        
+
         textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid #e1e5e9;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             resize: vertical;
-            min-height: 100px;
+            min-height: 80px;
             font-family: inherit;
         }
-        
+
         textarea:focus {
             outline: none;
             border-color: #007bff;
         }
-        
+
         .submit-btn {
             background: #007bff;
             color: white;
-            padding: 12px 30px;
+            padding: 10px 20px;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s;
+            width: 100%;
         }
-        
+
         .submit-btn:hover {
             background: #0056b3;
         }
-        
+
         .submit-btn:disabled {
             background: #6c757d;
             cursor: not-allowed;
         }
-        
+
         .loading {
             display: none;
             text-align: center;
             color: #007bff;
-            margin: 20px 0;
+            margin: 15px 0;
+            font-size: 14px;
         }
-        
+
         .result {
-            margin-top: 30px;
-            padding: 25px;
+            margin-top: 20px;
+            padding: 20px;
             background: #f8f9fa;
             border-radius: 8px;
             border-right: 4px solid #007bff;
             display: none;
         }
-        
+
         .result h3 {
             color: #2d3436;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-bottom: 2px solid #e9ecef;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
+            font-size: 16px;
         }
-        
+
         .analysis-content {
             white-space: pre-line;
             line-height: 1.6;
+            font-size: 14px;
         }
-        
+
         .stats-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
         }
-        
+
         .stats-number {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 5px;
         }
-        
+
         .stats-label {
-            font-size: 14px;
+            font-size: 12px;
             opacity: 0.9;
         }
-        
+
         .history-item {
-            padding: 15px;
+            padding: 12px;
             border-bottom: 1px solid #e9ecef;
             cursor: pointer;
             transition: background 0.3s;
+            font-size: 13px;
         }
-        
+
         .history-item:hover {
             background: #f8f9fa;
         }
-        
+
         .history-item:last-child {
             border-bottom: none;
         }
-        
+
         .history-date {
-            font-size: 12px;
+            font-size: 11px;
             color: #6c757d;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
-        
+
         .history-preview {
-            font-size: 14px;
+            font-size: 13px;
             color: #2d3436;
         }
-        
+
         .error-message {
             background: #ffe6e6;
             color: #dc3545;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 12px 0;
             display: none;
+            font-size: 13px;
         }
-        
+
         .success-message {
             background: #d4edda;
             color: #155724;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 12px 0;
             display: none;
+            font-size: 13px;
         }
-        
+
         .section-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: #2d3436;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 2px solid #e9ecef;
+        }
+
+        /* 📱 مدیا کوئری برای تبلت */
+        @media (min-width: 768px) {
+            .container {
+                grid-template-columns: 1fr 300px;
+                padding: 20px;
+            }
+
+            .submit-btn {
+                width: auto;
+            }
+
+            .logo h1 {
+                font-size: 24px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+        }
+
+        /* 📱 مدیا کوئری برای دسکتاپ */
+        @media (min-width: 1024px) {
+            .container {
+                gap: 20px;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+
+            .sidebar {
+                padding: 20px;
+            }
+        }
+
+        /* 📱 مدیا کوئری برای موبایل‌های کوچک */
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .user-info {
+                justify-content: center;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .sidebar {
+                padding: 12px;
+            }
+
+            textarea {
+                min-height: 70px;
+                font-size: 13px;
+            }
+        }
+
+        /* بهبود نمایش تاریخچه در موبایل */
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
         }
     </style>
 </head>
+
 <body>
     <!-- هدر -->
     <header class="header">
@@ -257,54 +341,44 @@
         <!-- بخش اصلی -->
         <div class="main-content">
             <h2 class="section-title">فرم جدید تحلیل طرحواره</h2>
-            
+
             <div id="errorMessage" class="error-message"></div>
             <div id="successMessage" class="success-message"></div>
-            
+
             <form id="schemaForm">
                 <div class="form-group">
                     <label for="situation">موقعیت برانگیزاننده:</label>
-                    <textarea 
-                        id="situation" 
-                        placeholder="چه اتفاقی افتاد؟ با چه کسی بودید؟ چه کسی چه گفت؟"
-                        required
-                    ></textarea>
+                    <textarea id="situation" placeholder="چه اتفاقی افتاد؟ با چه کسی بودید؟ چه کسی چه گفت؟"
+                        required></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="thoughts">افکار:</label>
-                    <textarea 
-                        id="thoughts" 
-                        placeholder="در آن لحظه چه فکری به ذهنتان آمد؟ چه برداشتی از موقعیت داشتید؟"
-                        required
-                    ></textarea>
+                    <textarea id="thoughts" placeholder="در آن لحظه چه فکری به ذهنتان آمد؟ چه برداشتی از موقعیت داشتید؟"
+                        required></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="emotions">احساسات:</label>
-                    <textarea 
-                        id="emotions" 
+                    <textarea id="emotions"
                         placeholder="چه احساسی داشتید؟ شدت هر احساس از ۰ تا ۱۰۰ چقدر بود؟ (مثال: ناراحتی ۸۰٪، خشم ۴۰٪)"
-                        required
-                    ></textarea>
+                        required></textarea>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="behavior">رفتار:</label>
-                    <textarea 
-                        id="behavior" 
+                    <textarea id="behavior"
                         placeholder="در پاسخ به این افکار و احساسات، چه کاری انجام دادید؟ چگونه واکنش نشان دادید؟"
-                        required
-                    ></textarea>
+                        required></textarea>
                 </div>
-                
+
                 <button type="submit" class="submit-btn" id="submitBtn">دریافت تحلیل طرحواره</button>
             </form>
-            
+
             <div class="loading" id="loading">
                 🔄 در حال تحلیل... لطفاً منتظر بمانید
             </div>
-            
+
             <div id="result" class="result">
                 <h3>نتایج تحلیل طرحواره</h3>
                 <div class="analysis-content" id="analysisContent"></div>
@@ -313,14 +387,14 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- سایدبار -->
         <div class="sidebar">
             <div class="stats-card">
                 <div class="stats-number" id="totalForms">0</div>
                 <div class="stats-label">تعداد فرم‌های تحلیل شده</div>
             </div>
-            
+
             <h3 class="section-title">تاریخچه تحلیل‌ها</h3>
             <div id="historyList">
                 <div style="text-align: center; color: #6c757d; padding: 20px;">
@@ -332,4 +406,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
