@@ -716,25 +716,24 @@
 
             if (forms.length === 0) {
                 historyList.innerHTML = `
-                    <div style="text-align: center; color: #6c757d; padding: 20px;">
-                        هنوز فرمی ثبت نکرده‌اید
-                    </div>
-                `;
+            <div style="text-align: center; color: #6c757d; padding: 20px;">
+                هنوز فرمی ثبت نکرده‌اید
+            </div>
+         `;
                 return;
             }
 
             historyList.innerHTML = forms.map((form, index) => `
-                <div class="history-item" onclick="viewFormDetail(${form.id})">
-                    <div class="history-date">
-                        ${new Date(form.created_at).toLocaleDateString('fa-IR')}
-                    </div>
-                    <div class="history-preview">
-                        ${form.situation.substring(0, 60)}...
-                    </div>
-                </div>
-            `).join('');
+         <div class="history-item" onclick="viewFormDetail(${form.id})">
+            <div class="history-date">
+                ${new Date(form.created_at).toLocaleDateString('fa-IR')}
+            </div>
+            <div class="history-preview">
+                ${form.situation.substring(0, 60)}...
+            </div>
+         </div>
+         `).join('');
         }
-
         // بارگذاری آمار کاربر
         async function loadUserStats() {
             const auth = checkAuth();
